@@ -1,0 +1,18 @@
+# 密钥与本地状态
+.env
+*.jks
+local.properties
+
+# 运行时产物
+/workspaces/
+TV-ui-results/
+TV-ui-runtime/
+*.log
+*.pid
+
+# Android / Gradle
+.gradle/
+build/
+.media3/
+__pycache__/
+*.pyc

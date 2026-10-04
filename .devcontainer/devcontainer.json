@@ -1,0 +1,53 @@
+{
+  "name": "TV Android (Leanback) Build + Emulator",
+  "build": {
+    "dockerfile": "Dockerfile",
+    "context": "."
+  },
+  "features": {
+    "ghcr.io/devcontainers/features/java:1": {
+      "version": "21",
+      "jdkDistro": "ms",
+      "installGradle": false,
+      "installMaven": false
+    },
+    "ghcr.io/devcontainers/features/python:1": {
+      "version": "3.10",
+      "installTools": false
+    },
+    "ghcr.io/devcontainers/features/github-cli:1": {},
+    "ghcr.io/devcontainers/features/node:1": {
+      "version": "22"
+    }
+  },
+  "hostRequirements": {
+    "cpus": 4,
+    "memory": "16gb",
+    "storage": "64gb"
+  },
+  "containerEnv": {
+    "TV_WORKSPACES": "/workspaces",
+    "ANDROID_HOME": "/workspaces/android-sdk",
+    "ANDROID_SDK_ROOT": "/workspaces/android-sdk",
+    "ANDROID_AVD_HOME": "/workspaces/TV-ui-runtime/avd",
+    "MEDIA3_SOURCE_DIR": "/workspaces/TV/.media3",
+    "GRADLE_USER_HOME": "/workspaces/.gradle"
+  },
+  "remoteEnv": {
+    "PATH": "${containerEnv:PATH}:/workspaces/android-sdk/cmdline-tools/latest/bin:/workspaces/android-sdk/platform-tools:/workspaces/android-sdk/emulator"
+  },
+  "postCreateCommand": "bash .devcontainer/postCreate.sh",
+  "postStartCommand": "bash .devcontainer/scripts/60-restore-runtime.sh",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "vscjava.vscode-java-pack",
+        "redhat.java",
+        "fwcd.kotlin"
+      ]
+    }
+  },
+  "runArgs": [
+    "--device=/dev/kvm"
+  ]
+}

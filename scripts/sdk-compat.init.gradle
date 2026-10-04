@@ -1,0 +1,11 @@
+// AGP 9.x 官方 minor API DSL，匹配 platforms;android-37.0。
+// 由 build-tv.sh 加载，无需改写 SDK 目录或 TV 仓库。
+gradle.beforeProject { p ->
+    ['com.android.application', 'com.android.library'].each { pluginId ->
+        p.pluginManager.withPlugin(pluginId) {
+            p.extensions.getByName('androidComponents').finalizeDsl { dsl ->
+                if (dsl.compileSdk == 37) dsl.compileSdkMinor = 0
+            }
+        }
+    }
+}
